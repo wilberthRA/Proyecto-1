@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicoRides</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function agregarFila(id){
+  document.getElementById(id).insertRow(-1).innerHTML = '<tr><td>ta</td><td>San Cos</td><td>Cahuita</td><td><label for="radio3">Editar</label>   <label onclick="eliminar(this)">Borrar</label>  <label for="radio7">Ver</label></td></tr>';
+}
+function eliminar(row){
+      var d = row.parentNode.parentNode.rowIndex;
+      document.getElementById('tabla1').deleteRow(d);
+   }
+    </script>
+</head>
+<body>
+    <div class="contendor">
+       <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Publico\publico.html"><input type="button" value="Cerrar sesion" name="Cerrar sesion" id="btnCerrar"></a>
+        <div class="Botones">
+            <label for="radio1">Dashboard</label><label>Rides</label><label for="radio2">Configuraciones</label>
+        </div>
+        <div class="contenido">
+            <!--Div que contine el tab de dashboard-->
+            
+            <input type="radio" name="radio" id="radio1" checked>
+            <input type="radio" name="radio" id="radio4" >
+            <input type="radio" name="radio" id="radio5"  onclick="agregarFila('tabla1')">
+            <div class="tab1">
+                <h2>Dashboard</h2>
+                <h4>Mis Rides</h4><br>
+                <label for="radio6">Agregar</label><br><br>
+                <form id="table">
+                    <table border="1" id="tabla1">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Salida</th>
+                            <th>Destino</th>
+                            <th>Acciones</th>
+                        </tr>
+                        <tr>
+                            <td>tia</td>
+                            <td>San Carlos</td>
+                            <td>Cahuita</td>
+                            <td><label for="radio3">Editar</label>   <label onclick="eliminar(this)">Borrar</label>  <label for="radio7">Ver</label></td>  
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <!--Div que contiene el tab de las configuracion-->
+            <input type="radio" name="radio" id="radio2">
+            <div class="tab2">
+                <h1>Configuraciones</h1>
+                <label for="nombre">Nombre completo</label><input type="text" name="Nombre" id="nombre"><br>
+                <label for="velocidad">Velocidad promedio</label><input type="number" name="Velocidad" id="velocidad" readonly><br>
+                <label for="acercademi">Descripcion</label><br><textarea name="Acercademi" id="acercademi"></textarea><br>
+                <input type="button" value="Guardar"> <input type="button" value="cancelar" >
+            </div>
+            <!--Div que contiene el tab de los rides-->
+            <input type="radio" name="radio" id="radio3">
+            <input type="radio" name="radio" id="radio6">
+            <div class="tab3">
+                <form id="form1">
+                    <section class="form1">
+                        <label for="Nomride" id="lblSalida">Nombre del ride</label><br><input type="text" name="salida" id="Nomride"><br>
+                        <section class="form5">
+                            <section id="centro">
+                                <label for="Salida">Salida</label><input type="text" name="" id="Salida"> <label for="Destino">Destino</label><input type="text" name="" id="Destino">
+                            </section>
+                            <label for="descripcion">Descripcion</label><BR><textarea name="descripcion" id="descripcion"></textarea>
+                        </section>
+                    </section>
+                    
+                    <hr>
+                    <section id="form2">
+                        <label for="Hsalida">Hora de salida</label><input type="time" name="hSalida" id="Hsalida"><br>
+                        <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada">
+                    </section> 
+                    <section id="form3">
+                        <input type="checkbox" name="Lunes" id="dia"><label id="lbldia">Lunes</label><br>
+                        <input type="checkbox" name="Martes" id="dia"><label id="lbldia">Martes</label><br>
+                        <input type="checkbox" name="Miercoles" id="dia"><label id="lbldia">Miercoles</label><br>
+                        <input type="checkbox" name="Jueves" id="dia"><label id="lbldia">Jueves</label><br>
+                        <input type="checkbox" name="Viernes" id="dia"><label id="lbldia">Viernes</label><br>
+                        <input type="checkbox" name="Sabado" id="dia"><label id="lbldia">Sabado</label><br>
+                        <input type="checkbox" name="Domingo" id="dia"><label id="lbldia">Domingo</label><br>
+                    </section>
+                    <section class="form4">
+                        <label for="radio4" onclick="document.getElementById('form1').reset()">Cancelar</label><label for="radio5" onclick="document.getElementById('form1').reset()">Aceptar</label>
+                    </section>
+                </form>
+            </div>
+
+            <!--Div que contiene el tab en readonly de los rides-->
+            <input type="radio" name="radio" id="radio7">
+            <div class="tab4" >
+                <form>
+                    <section class="form1">
+                        <label for="Nomride" id="lblSalida">Nombre del ride</label><br><input type="text" name="salida" id="Nomride" disabled><br>
+                        <section class="form5">
+                            <section id="centro">
+                                <label for="Salida">Salida</label><input type="text" name="" id="Salida" disabled> <label for="Destino">Destino</label><input type="text" name="" id="Destino" disabled>
+                            </section>
+                            <label for="descripcion">Descripcion</label><BR><textarea name="descripcion" id="descripcion" disabled></textarea>
+                        </section>
+                    </section>
+                    
+                    <hr>
+                    <section id="form2">
+                        <label for="Hsalida">Hora de salida</label><input type="time" name="hSalida" id="Hsalida" disabled><br>
+                        <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada" disabled>
+                    </section> 
+                    <section id="form3">
+                        <input type="checkbox" name="Lunes" id="dia" disabled><label id="lbldia">Lunes</label><br>
+                        <input type="checkbox" name="Martes" id="dia" disabled><label id="lbldia">Martes</label><br>
+                        <input type="checkbox" name="Miercoles" id="dia" disabled><label id="lbldia">Miercoles</label><br>
+                        <input type="checkbox" name="Jueves" id="dia" disabled><label id="lbldia">Jueves</label><br>
+                        <input type="checkbox" name="Viernes" id="dia" disabled><label id="lbldia">Viernes</label><br>
+                        <input type="checkbox" name="Sabado" id="dia" disabled><label id="lbldia">Sabado</label><br>
+                        <input type="checkbox" name="Domingo" id="dia"disabled><label id="lbldia">Domingo</label><br>
+                    </section>
+                    <section class="form4">
+                        
+                        <label for="radio4">Cancelar</label><label for="radio4">Aceptar</label>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

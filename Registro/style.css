@@ -1,0 +1,33 @@
+body{
+    background-color: rgb(243, 243, 243);
+}
+h1{
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+}
+p{
+    text-align: center;
+}
+input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+label{
+    text-align: center;
+    display: block;
+    
+}
+#btnregistro{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30px;
+}
+#a{
+    text-decoration: none;
+}
+input{
+    border-color: blue;
+}

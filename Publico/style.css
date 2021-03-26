@@ -1,0 +1,64 @@
+#login{
+    display: block;
+    margin-left: 90%;
+    margin-top: 25px;
+    height: 30px;
+}
+body{
+    background-color: rgb(243, 243, 243);
+    align-items: center;
+}
+h3{
+    display: block;
+    margin-top: 70px;
+    text-align: center;
+}
+a{
+    text-decoration: none;
+}
+.info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#p1{
+    text-align: center;
+}
+#p2{
+    text-align: center;
+}
+input{
+    margin: 10px;
+}
+table{
+    border-collapse: separate;
+    border: 1px;
+    background-color: white;
+    height: 250px;
+    width: 500px;
+    empty-cells: hide;
+    margin-right: auto;
+    margin-left: auto;
+    border-color: blue;
+}
+input{
+    border-color: blue;
+}
+#table{
+    height: 250px;
+    width: 513px;
+    max-width: 513px;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin:auto ;  
+    
+}
+table th{
+    position: sticky;
+    top: 0;
+    background-color:white;
+}
+table th,tr,td{
+    padding: 7px;
+}

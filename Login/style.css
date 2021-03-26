@@ -1,0 +1,33 @@
+body{
+    background-color: rgb(243, 243, 243);
+}
+h1{
+    text-align: center;
+    display: block;
+    margin-top: 150px;
+}
+p{
+    text-align: center;
+}
+input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+label{
+    text-align: center;
+    display: block;
+    
+}
+#a{
+    text-decoration: none;
+}
+#btnacceder{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    height: 30px;
+}
+input{
+    border-color: blue;
+}

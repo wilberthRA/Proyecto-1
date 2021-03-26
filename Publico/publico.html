@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicoRides</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function columnasPublicas(usuario,salida,destino,a){
+            this.Usuario = usuario;
+            this.Salida =salida;
+            this.Destino = destino;
+            this.A = a;
+        };
+        var columna = new columnasPublicas("Kath","rio frio","san carlos","interes");
+        function agregarFila(id){   
+            document.getElementById(id).insertRow(-1).innerHTML = '<tr><td>'+columna.Usuario+'</td><td>'+columna.Salida+'</td><td>'+columna.Destino+'</td><td>'+columna.A+'</td></tr>';
+        };
+        
+        window.onload = function(){
+            agregarFila('tablePublico');
+        };
+    </script>
+</head>
+<body>
+    <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Login\login.html"><input type="button" value="Acceder" id="login"></a>
+    <h3>Bienvenido a TicoRides.com</h3>
+    <p id="p1">Buscar un ride</p>
+    <div class="info">
+        <label for="salida">Salida</label><input type="text" name="salida" id="salida" >
+        <label for="destino">Destino</label><input type="text" name="destino" id="destino">
+        <input type="button" value="Buscar" onclick="agregarFila('tablePublico')">
+    </div>
+    <p id="p2">Resultados de tu busqueda</p>
+    <form id="table">
+        <table border="1"m  id="tablePublico">
+            <tr>
+                <th>Usuario</th>
+                <th>Salida</th>
+                <th>Destino</th>
+                <th>??</th>
+            </tr>          
+        </table>
+    </form>
+</body>
+</html>
