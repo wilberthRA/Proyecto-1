@@ -9,83 +9,9 @@
     max-width: 700px;
     margin: auto;
 }
-.Botones label{
-    display: inline-block;
-    padding: 20px;
-    transition: all 400ms ease;
-    cursor: pointer;
+button{
+    height: 12px;
 }
-td label{
-    cursor: pointer;
-}
-.Botones label:hover{
-background: #fff;
-}
-.contenido{
-    position: relative;
-}
-.tab1 label{
-    cursor: pointer;
-}
-.contenido div{
-    transition: all 600ms ease;
-    opacity: 0;
-    display: none;
-    transform: scale(0.90);
-    padding: 30px;
-    padding-bottom: 40px;
-}
-#radio1,#radio2,#radio3,#radio4,#radio5,#radio6,#radio7{
-    display: none;
-}
-.form4 label{
-    background:lightgray;
-    margin: 5px;
-}
-.form4 label:hover{
-    background-color: #fff;
-}
-
-#radio1:checked ~ .tab1,
-#radio2:checked ~ .tab2,
-#radio3:checked ~ .tab3,
-#radio4:checked ~ .tab1,
-#radio5:checked ~ .tab1,
-#radio6:checked ~ .tab3,
-#radio7:checked ~ .tab4
-{
-    opacity: 1;
-    transform: scale(1);
-    display: block;
-}
-.contenido div::after{
-    position: absolute;
-    content: '';
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid #fff;
-    bottom: 100%;
-    left: 41%;
-}
-.contenido .tab3::after{
-    left: 48%;
-}
-.contenido .tab4::after{
-    left: 48%;
-}
-.contenido .tab2::after{
-    left: 56%;
-}
-td label{
-    margin: 5px;
-}
-td label:hover{
-    background-color: grey;
-}
-
-
-
 
 body{
     background-color:rgb(243, 243, 243) ;
