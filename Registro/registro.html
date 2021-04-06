@@ -13,6 +13,7 @@
             this.Telefono = tel;
             this.Nombre = nombre;
             this.Apellidos = apellidos;
+            this.Viajes = new Array();
         };
         function guardar_localstorage(){
             if(sessionStorage.getItem("Usuarios") != null){
@@ -71,7 +72,7 @@
             }
         }
         function setAction(form) {
-                form.action = "C:/Users/wilcr/OneDrive/Escritorio/UTN Software/Diseño de aplicaciones web/Programas/Proyecto 1/Dashboar/dashboar.html";
+                form.action = "C:/Users/wilcr/OneDrive/Escritorio/UTN Software/Diseño de aplicaciones web/Programas/Proyecto 1/Login/login.html";
             return false;
         }
     </script>

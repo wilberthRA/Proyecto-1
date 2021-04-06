@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,25 +23,145 @@
             var tab = new bootstrap.Tab(someTabTriggerEl)
             tab.show()
         }
-        function agregarFila(id, idtab1,idtab2){
-            document.getElementById(id).insertRow(-1).innerHTML = '<tr><td>ta</td><td>San Cos</td><td>Cahuita</td><td><button class="btn btn-primary" type="button" role="tab" onclick="mostrartab(\''+idtab1+'\')">Editar</button> <button class="btn btn-primary" onclick="eliminar(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="mostrartab(\''+idtab2+'\')" >ver</button></td></tr>';
+        function agregarFila(){
+            document.getElementById("tabla1").insertRow(-1).innerHTML = '<tr><td>'+document.getElementById("Nomride").value+'</td><td>'+document.getElementById("Salida").value+'</td><td>'+document.getElementById("Destino").value+'</td><td><button class="btn btn-primary" type="button" role="tab" onclick="cargarRide(this),Fila(this),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Editar'+'\')">Editar</button> <button class="btn btn-primary" onclick="pregunta(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="cargarRide(this),readonly(),mostrartab(\''+'Rides-tab'+'\')" >ver</button></td></tr>';
+        }
+        function pintar(){
+            var a = new Array();
+            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            var g = sessionStorage.getItem('usuarioactivo');
+            for (let i = 0; i < a.length; i++) {
+                if(g === a[i].NamUsuario){
+                    for (let f = 0; f < a[i].Viajes.length; f++) {
+                        document.getElementById("tabla1").insertRow(-1).innerHTML = '<tr><td>'+a[i].Viajes[f].Nombre+'</td><td>'+a[i].Viajes[f].Salida+'</td><td>'+a[i].Viajes[f].Destino+'</td><td><button class="btn btn-primary" type="button" role="tab" onclick="cargarRide(this),Fila(this),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Editar'+'\')">Editar</button> <button class="btn btn-primary" onclick="pregunta(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="cargarRide(this),readonly(),mostrartab(\''+'Rides-tab'+'\')" >ver</button></td></tr>';
+                    }    
+                }
+            }
+        }
+        function posicionUsuario(){
+            var a = new Array();
+            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            var g = sessionStorage.getItem('usuarioactivo');
+                var posicion = 0;
+                for (let j = 0; j < a.length; j++) {
+                    if(g === a[j].NamUsuario){
+                       posicion = j;
+                    }
+                }
+                return posicion
+        }
+        function editarViaje(){
+            var a = new Array();
+            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            var fila = sessionStorage.getItem("fila");
+            var posicion = posicionUsuario();
+            var i = sessionStorage.getItem("fila")
+            document.getElementById("tabla1").rows[i].cells[0].innerHTML = document.getElementById("Nomride").value;
+            document.getElementById("tabla1").rows[i].cells[1].innerHTML = document.getElementById("Salida").value;
+            document.getElementById("tabla1").rows[i].cells[2].innerHTML = document.getElementById("Destino").value;
+        }
+        
+        function Fila(row){
+            var d = row.parentNode.parentNode.rowIndex;
+            sessionStorage.setItem("fila",d)
+        }
+        function guardar_localstorage(){
+            var a = new Array();
+            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            var posicion = posicionUsuario();
+            a[posicion].Viajes = new Array();
+            for (let i = 1; i < document.getElementById("tabla1").rows.length; i++) {                
+                let nombre = document.getElementById("tabla1").rows[i].cells[0].innerText;
+                let salida = document.getElementById("tabla1").rows[i].cells[1].innerText;
+                let destino = document.getElementById("tabla1").rows[i].cells[2].innerText;
+                let h = new datostabla(nombre,salida,destino);
+                a[posicion].Viajes.push(h)
+            } 
+            var b = new Array();
+            for (let i = 0; i < a.length; i++) {
+                let f = new RegUsuario(a[i].NamUsuario,a[i].Contraseña,a[i].Telefono,a[i].Nombre,a[i].Apellidos,a[i].Viajes);
+                b.push(f);
+            }
+            sessionStorage.setItem("Usuarios",JSON.stringify(b)) 
         }
         function eliminar(row){
             var d = row.parentNode.parentNode.rowIndex;
             document.getElementById('tabla1').deleteRow(d);
         }
+        function cargarRide(row){
+            var d = row.parentNode.parentNode.rowIndex;
+            var a = new Array();
+            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            var posicion = posicionUsuario();
+            document.getElementById("Nomride").value = a[posicion].Viajes[d-1].Nombre;
+            document.getElementById("Salida").value = a[posicion].Viajes[d-1].Salida;
+            document.getElementById("Destino").value = a[posicion].Viajes[d-1].Destino;
+        }
+        function pregunta(id){
+    if (confirm('¿Estas seguro que quiere borrar el viaje?')){
+        eliminar(id)
+    }
+}
+        function readonly(){
+            var hijos = document.getElementById('form1').childNodes;
+            var hijos2 = document.getElementById('centro').childNodes;
+            var hijos3 = document.getElementById('form3').childNodes;
+            for (let index = 0; index < hijos.length; index++) {
+                var Rehijos = hijos[index].childNodes;
+                for (let i = 0; i < Rehijos.length; i++) {
+                    Rehijos[i].readOnly = true;
+                    
+                }
+            }
+            for (let a = 0; a < hijos2.length; a++) {
+                hijos2[a].readOnly = true;
+            }
+            for (let a = 0; a < hijos3.length; a++) {
+                hijos3[a].disabled = true;
+            }
+        }
+        function datostabla(nombre,salida,destino){
+            this.Nombre = nombre;
+            this.Salida = salida; 
+            this.Destino = destino;
+        }
+        function RegUsuario(namusuario,Contraseña,tel,nombre,apellidos,viajes){
+            this.NamUsuario = namusuario;
+            this.Contraseña = Contraseña;
+            this.Telefono = tel;
+            this.Nombre = nombre;
+            this.Apellidos = apellidos;
+            this.Viajes = viajes
+        };
+        function EditarAgregar(cambio){
+            sessionStorage.setItem("Tipo",cambio)
+        }
+        function accion(){
+            var tipo = sessionStorage.getItem("Tipo");
+            if(tipo == "Editar"){
+                editarViaje()
+            }else{
+                agregarFila()
+            }
+        }
+        window.onload = function(){
+            pintar();
+        }
+        window.onbeforeunload = function(){
+            guardar_localstorage()
+        }
+        
     </script>
     <title>TicoRides</title>
   </head>
   <body>
     <div class="contendor">
-        <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Publico\publico.html"><input type="button" class="btn btn-primary" value="Cerrar sesion" name="Cerrar sesion" id="btnCerrar"></a>
+        <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Publico\publico.html"><input type="button" class="btn btn-primary" onclick="guardar_localstorage()" value="Cerrar sesion" name="Cerrar sesion" id="btnCerrar"></a>
             <ul class="nav nav-tabs justify-content-center" role="tablist">
                 <li class="nav-item " role="presentation">
                     <button class="nav-link active btn-primary" id="Dashboard-tab" data-bs-toggle="tab" data-bs-target="#Dashboard" type="button" role="tab" aria-controls="Dashboard" aria-selected="true">Home</button></li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link btn-primary" id="Rides-tab" data-bs-toggle="tab" data-bs-target="#Rides" type="button" role="tab" aria-controls="Rides" aria-selected="false" >Rides</button>
-                    <button class="nav-link " id="RidesReadonly-tab" data-bs-toggle="tab" data-bs-target="#RidesReadonly" type="button" role="tab" aria-controls="RidesReadonly" aria-selected="false" style="display: none;">Rides</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link btn btn-primaRides-tabry" id="Configuraciones-tab" data-bs-toggle="tab" data-bs-target="#Configuraciones" type="button" role="tab" aria-controls="Configuraciones" aria-selected="false">Configuraciones</button></li>
@@ -51,7 +172,7 @@
              <div class="tab1 tab-pane active" id="Dashboard" role="tabpanel" aria-labelledby="Dashboard-tab">
                  <h2>Dashboard</h2>
                  <h4>Mis Rides</h4><br>
-                 <button class="btn btn-primary" type="button" role="tab" onclick="mostrartab('Rides-tab')">Agregar</button><br><br>
+                 <button class="btn btn-primary" type="button" role="tab" onclick="mostrartab('Rides-tab'),EditarAgregar('Agregar')">Agregar</button><br><br>
                  <form id="table">
                      <table border="1" id="tabla1"  class="container table table-bordered">
                          <tr>
@@ -59,16 +180,6 @@
                              <th>Salida</th>
                              <th>Destino</th>
                              <th>Acciones</th>
-                         </tr>
-                         <tr>
-                             <td>tia</td>
-                             <td>San Carlos</td>
-                             <td>Cahuita</td>
-                             <td>
-                                <button class="btn btn-primary" id="btn1" type="button" role="tab" onclick="mostrartab('Rides-tab')">Editar</button>
-                                <button class="btn btn-primary" id="btn1" type="button" onclick="eliminar(this)">Borrar</button>
-                                <button class="btn btn-primary" id="btn1" type="button" id="RidesReadonly-tab" onclick="mostrartab('RidesReadonly-tab')" >ver</button>
-                            </td>  
                          </tr>
                      </table>
                  </form>
@@ -86,20 +197,18 @@
              <!--Div que contiene el tab de los rides-->
              
              <div class="tab3 tab-pane" id="Rides" role="tabpanel" aria-labelledby="Rides-tab">
-                 <form id="form1">
+                 <form id="form1" onsubmit="accion(),document.getElementById('form1').reset(),mostrartab('Dashboard-tab')">
                      <section class="form1">
-                         <label for="Nomride" id="lblSalida">Nombre del ride</label><br><input type="text" name="salida" id="Nomride"><br>
-                         <section class="form5">
+                         <label for="Nomride" id="lblSalida">Nombre del ride</label><br><input type="text" name="salida" id="Nomride" required><br>
                              <section id="centro">
-                                 <label for="Salida">Salida</label><input type="text" name="" id="Salida"> <label for="Destino">Destino</label><input type="text" name="" id="Destino">
+                                 <label for="Salida">Salida</label><input required type="text" name="" id="Salida"> <label for="Destino">Destino</label><input required type="text" name="" id="Destino">
                              </section>
                              <label for="descripcion">Descripcion</label><BR><textarea name="descripcion" id="descripcion"></textarea>
-                         </section>
                      </section>
                      
                      <section id="form2">
-                         <label for="Hsalida">Hora de salida</label><input type="time" name="hSalida" id="Hsalida"><br>
-                         <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada">
+                         <label for="Hsalida">Hora de salida</label><input type="time" name="hSalida" id="Hsalida" required><br>
+                         <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada" required>
                      </section> 
                      <section id="form3">
                          <input type="checkbox" name="Lunes" id="dia"><label id="lbldia">Lunes</label><br>
@@ -111,46 +220,10 @@
                          <input type="checkbox" name="Domingo" id="dia"><label id="lbldia">Domingo</label><br>
                      </section>
                      <section class="form4">
-                         <button class="btn btn-primary" type="button" onclick="document.getElementById('form1').reset(),mostrartab('Dashboard-tab')" >Cancelar</button> <button class="btn btn-primary" type="button" onclick="document.getElementById('form1').reset(),agregarFila('tabla1','Rides-tab','RidesReadonly-tab'),mostrartab('Dashboard-tab')" >Aceptar</button>
+                         <button class="btn btn-primary" type="button" onclick="document.getElementById('form1').reset(),mostrartab('Dashboard-tab')" >Cancelar</button> <button class="btn btn-primary" type="submit" >Aceptar</button>
                      </section>
                  </form>
              </div>
- 
-             <!--Div que contiene el tab en readonly de los rides-->
-             
-             <div class="tab4 tab-pane" id="RidesReadonly" role="tabpanel" aria-labelledby="RidesReadonly-tab">
-                 <form>
-                     <section class="form1">
-                         <label for="Nomride" id="lblSalida">Nombre del ride</label><br><input type="text" name="salida" id="Nomride" disabled><br>
-                         <section class="form5">
-                             <section id="centro">
-                                 <label for="Salida">Salida</label><input type="text" name="" id="Salida" disabled> <label for="Destino">Destino</label><input type="text" name="" id="Destino" disabled>
-                             </section>
-                             <label for="descripcion">Descripcion</label><BR><textarea name="descripcion" id="descripcion" disabled></textarea>
-                         </section>
-                     </section>
-                     
-                     <hr>
-                     <section id="form2">
-                         <label for="Hsalida">Hora de salida</label><input type="time" name="hSalida" id="Hsalida" disabled><br>
-                         <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada" disabled>
-                     </section> 
-                     <section id="form3">
-                         <input type="checkbox" name="Lunes" id="dia" disabled><label id="lbldia">Lunes</label><br>
-                         <input type="checkbox" name="Martes" id="dia" disabled><label id="lbldia">Martes</label><br>
-                         <input type="checkbox" name="Miercoles" id="dia" disabled><label id="lbldia">Miercoles</label><br>
-                         <input type="checkbox" name="Jueves" id="dia" disabled><label id="lbldia">Jueves</label><br>
-                         <input type="checkbox" name="Viernes" id="dia" disabled><label id="lbldia">Viernes</label><br>
-                         <input type="checkbox" name="Sabado" id="dia" disabled><label id="lbldia">Sabado</label><br>
-                         <input type="checkbox" name="Domingo" id="dia"disabled><label id="lbldia">Domingo</label><br>
-                     </section>
-                     <section class="form4">
-                         
-                         <label for="radio4">Cancelar</label><label for="radio4">Aceptar</label>
-                     </section>
-                 </form>
-             </div>
-         </div>
      </div>
     
   </body>

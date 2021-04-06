@@ -22,6 +22,7 @@
                     if(document.getElementById("username").value == usuarios[i].NamUsuario && document.getElementById("password").value == usuarios[i].Contraseña){
                         alert("bienvenido")
                         setAction(id);
+                        sessionStorage.setItem("usuarioactivo",document.getElementById("username").value)
                         return true
                     }else{
                         e = "si"     
@@ -38,13 +39,14 @@
             return false;
         }
     </script>
+    
 </head>
 <body>
     <h1>TicoRides</h1>
     <br>
     <br>
     <br>
-    <form id="form1" onsubmit="validarlog(this)">
+    <form id="form1" action="datos.php" onsubmit="validarlog(this)" method="POST">
     <label for="username" >Nombre de usuario</label><br><input type="text" name="username" id="username"><br>
     <label for="password">Contraseña</label><br><input type="password" id="password">
     <p>¿No tienes una cuenta? <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Registro\registro.html">Registrate aqui</a></p>
