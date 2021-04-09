@@ -25,6 +25,19 @@
         }
         function agregarFila(){
             document.getElementById("tabla1").insertRow(-1).innerHTML = '<tr><td>'+document.getElementById("Nomride").value+'</td><td>'+document.getElementById("Salida").value+'</td><td>'+document.getElementById("Destino").value+'</td><td><button class="btn btn-primary" type="button" role="tab" onclick="cargarRide(this),Fila(this),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Editar'+'\')">Editar</button> <button class="btn btn-primary" onclick="pregunta(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="cargarRide(this),readonly(),mostrartab(\''+'Rides-tab'+'\')" >ver</button></td></tr>';
+            var a = new Array();
+            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            var posicion = posicionUsuario();
+            let nombre = document.getElementById("Nomride").value;
+                let salida = document.getElementById("Salida").value;
+                let destino = document.getElementById("Destino").value;
+                let descripcion= document.getElementById("descripcion").value;
+                let hsalida = document.getElementById("Hsalida").value;
+                let hllegada = document.getElementById("Hllegada").value;
+                let dias = diasSeleccionados();
+                let h = new datostabla(nombre,salida,destino,descripcion,hsalida,hllegada,dias);
+                a[posicion].Viajes.push(h)
+                sessionStorage.setItem("Usuarios",JSON.stringify(a))
         }
         function pintar(){
             var a = new Array();
@@ -55,38 +68,28 @@
             a = JSON.parse(sessionStorage.getItem('Usuarios'));
             var fila = sessionStorage.getItem("fila");
             var posicion = posicionUsuario();
-            var i = sessionStorage.getItem("fila")
-            document.getElementById("tabla1").rows[i].cells[0].innerHTML = document.getElementById("Nomride").value;
-            document.getElementById("tabla1").rows[i].cells[1].innerHTML = document.getElementById("Salida").value;
-            document.getElementById("tabla1").rows[i].cells[2].innerHTML = document.getElementById("Destino").value;
+            a[posicion].Viajes[fila-1].Nombre = document.getElementById("Nomride").value;
+            a[posicion].Viajes[fila-1].Salida = document.getElementById("Salida").value;
+            a[posicion].Viajes[fila-1].Destino = document.getElementById("Destino").value;
+            a[posicion].Viajes[fila-1].Descripcion = document.getElementById("descripcion").value;
+            a[posicion].Viajes[fila-1].HSalida = document.getElementById("Hsalida").value;
+            a[posicion].Viajes[fila-1].HLlegada = document.getElementById("Hllegada").value;
+            a[posicion].Viajes[fila-1].Dias = diasSeleccionados();
+            sessionStorage.setItem("Usuarios",JSON.stringify(a))
         }
         
         function Fila(row){
             var d = row.parentNode.parentNode.rowIndex;
             sessionStorage.setItem("fila",d)
         }
-        function guardar_localstorage(){
+        function eliminar(row){
             var a = new Array();
             a = JSON.parse(sessionStorage.getItem('Usuarios'));
             var posicion = posicionUsuario();
-            a[posicion].Viajes = new Array();
-            for (let i = 1; i < document.getElementById("tabla1").rows.length; i++) {                
-                let nombre = document.getElementById("tabla1").rows[i].cells[0].innerText;
-                let salida = document.getElementById("tabla1").rows[i].cells[1].innerText;
-                let destino = document.getElementById("tabla1").rows[i].cells[2].innerText;
-                let h = new datostabla(nombre,salida,destino);
-                a[posicion].Viajes.push(h)
-            } 
-            var b = new Array();
-            for (let i = 0; i < a.length; i++) {
-                let f = new RegUsuario(a[i].NamUsuario,a[i].Contraseña,a[i].Telefono,a[i].Nombre,a[i].Apellidos,a[i].Viajes);
-                b.push(f);
-            }
-            sessionStorage.setItem("Usuarios",JSON.stringify(b)) 
-        }
-        function eliminar(row){
             var d = row.parentNode.parentNode.rowIndex;
+            a[posicion].Viajes.splice(d-1,1)
             document.getElementById('tabla1').deleteRow(d);
+            sessionStorage.setItem("Usuarios",JSON.stringify(a))
         }
         function cargarRide(row){
             var d = row.parentNode.parentNode.rowIndex;
@@ -96,6 +99,17 @@
             document.getElementById("Nomride").value = a[posicion].Viajes[d-1].Nombre;
             document.getElementById("Salida").value = a[posicion].Viajes[d-1].Salida;
             document.getElementById("Destino").value = a[posicion].Viajes[d-1].Destino;
+            document.getElementById("descripcion").value = a[posicion].Viajes[d-1].Descripcion;
+            document.getElementById("Hsalida").value = a[posicion].Viajes[d-1].HSalida;
+            document.getElementById("Hllegada").value = a[posicion].Viajes[d-1].HLlegada;
+            var formulario = document.getElementById("form3").childNodes;
+            for (let i = 0; i < formulario.length; i++) {
+                for (let f = 0; f < a[posicion].Viajes[d-1].Dias.length; f++) {
+                    if (formulario[i].type == "checkbox" && formulario[i].value == a[posicion].Viajes[d-1].Dias[f] ) {
+                        formulario[i].checked = true;
+                    }
+                } 
+            }
         }
         function pregunta(id){
     if (confirm('¿Estas seguro que quiere borrar el viaje?')){
@@ -120,10 +134,24 @@
                 hijos3[a].disabled = true;
             }
         }
-        function datostabla(nombre,salida,destino){
+        function datostabla(nombre,salida,destino,descripcion,hsalida,hllegada,dias){
             this.Nombre = nombre;
             this.Salida = salida; 
             this.Destino = destino;
+            this.Descripcion = descripcion;
+            this.HSalida = hsalida;
+            this.HLlegada = hllegada;
+            this.Dias = dias;
+        }
+        function diasSeleccionados(){
+            var diasSeleccionados = new Array();
+            var formulario = document.getElementById("form3").childNodes;
+            for (let i = 0; i < formulario.length; i++) {
+                if (formulario[i].type == "checkbox" && formulario[i].checked==true) {
+                    diasSeleccionados.push(formulario[i].value)
+                }
+            }
+            return diasSeleccionados
         }
         function RegUsuario(namusuario,Contraseña,tel,nombre,apellidos,viajes){
             this.NamUsuario = namusuario;
@@ -141,15 +169,14 @@
             if(tipo == "Editar"){
                 editarViaje()
             }else{
+                diasSeleccionados()
                 agregarFila()
             }
         }
         window.onload = function(){
             pintar();
         }
-        window.onbeforeunload = function(){
-            guardar_localstorage()
-        }
+        
         
     </script>
     <title>TicoRides</title>
@@ -211,13 +238,13 @@
                          <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada" required>
                      </section> 
                      <section id="form3">
-                         <input type="checkbox" name="Lunes" id="dia"><label id="lbldia">Lunes</label><br>
-                         <input type="checkbox" name="Martes" id="dia"><label id="lbldia">Martes</label><br>
-                         <input type="checkbox" name="Miercoles" id="dia"><label id="lbldia">Miercoles</label><br>
-                         <input type="checkbox" name="Jueves" id="dia"><label id="lbldia">Jueves</label><br>
-                         <input type="checkbox" name="Viernes" id="dia"><label id="lbldia">Viernes</label><br>
-                         <input type="checkbox" name="Sabado" id="dia"><label id="lbldia">Sabado</label><br>
-                         <input type="checkbox" name="Domingo" id="dia"><label id="lbldia">Domingo</label><br>
+                         <input type="checkbox" checked name="Lunes" id="chkLunes" value="Lunes"><label id="lbldia">Lunes</label><br>
+                         <input type="checkbox" name="Martes" id="chkMartes" value="Martes"><label id="lbldia">Martes</label><br>
+                         <input type="checkbox" name="Miercoles" id="chkMiercoles" value="Miercoles"><label id="lbldia">Miercoles</label><br>
+                         <input type="checkbox" name="Jueves" id="chkJueves" value="Jueves"><label id="lbldia">Jueves</label><br>
+                         <input type="checkbox" name="Viernes" id="chkViernes" value="Viernes"><label id="lbldia">Viernes</label><br>
+                         <input type="checkbox" name="Sabado" id="chkSabado" value="Sabado"><label id="lbldia">Sabado</label><br>
+                         <input type="checkbox" name="Domingo" id="chkDomingo" value="Domingo"><label id="lbldia">Domingo</label><br>
                      </section>
                      <section class="form4">
                          <button class="btn btn-primary" type="button" onclick="document.getElementById('form1').reset(),mostrartab('Dashboard-tab')" >Cancelar</button> <button class="btn btn-primary" type="submit" >Aceptar</button>
