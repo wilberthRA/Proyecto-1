@@ -9,11 +9,6 @@ h1{
 p{
     text-align: center;
 }
-input {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-}
 label{
     text-align: center;
     display: block;
@@ -30,4 +25,49 @@ label{
 }
 input{
     border-color: blue;
+}
+header{
+    width: 100%;
+    overflow: hidden;
+    background-color:midnightblue;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 25px -22px black;
+}
+.wraper{
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+header .logo {
+    color: black;
+    font-size: 35px;
+    line-height: 100px;
+    float: left;
+}
+header nav{
+    float: right;
+    line-height: 100px;
+}
+.ordenar{
+    width: 300px;
+    float:right;
+    margin: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 50px;
+}
+footer{
+    float: left;
+    bottom: 0;
+    width: 100%;
+    margin: auto;
+}
+.centrar{
+    margin: auto;
+    text-align: center;
+   align-items: center;
+   height: 100px;
+   width: 600px;
+   justify-items: center;
 }

@@ -14,39 +14,85 @@
             this.Destino = destino;
             this.A = a;
         };
-        var columna = new columnasPublicas("Kath","rio frio","san carlos","interes");
         function agregarFila(id){   
-            document.getElementById(id).insertRow(-1).innerHTML = '<tr><td>'+columna.Usuario+'</td><td>'+columna.Salida+'</td><td>'+columna.Destino+'</td><td>'+columna.A+'</td></tr>';
+            
         };
         
         window.onload = function(){
-            for(let i = 0; i < 13; i++){
-                agregarFila('tablePublico');
-            }
+            document.getElementById("busqueda").style.display = "none"
         };
+        
+        function mostrarBusqueda(){
+            if(document.getElementById("busqueda").style.display != "none"){
+                document.getElementById("busqueda").style.display = "none"
+            }else{
+                document.getElementById("busqueda").style.display = "flex"
+            }
+        }
+        function busquedaViajes(){
+            var a = new Array();
+            a = JSON.parse(localStorage.getItem('Usuarios'));
+            var viajes = true;
+            var salida = document.getElementById("Salida").value;
+            var destino = document.getElementById("Destino").value;
+            ///var nuevo = document.createElement('tbody');
+            if(a != null){
+                for (let i = 0; i < a.length; i++) {
+                    viajes = true;
+                    if(a[i].Viajes.length > 0){
+                    document.getElementById("cuerpo").innerHTML = "";
+                         for (let f = 0; f < a[i].Viajes.length; f++) {
+                             if(a[i].Viajes[f].Salida.toLowerCase().indexOf(salida.toLowerCase(),0) != -1 && a[i].Viajes[f].Destino.toLowerCase().indexOf(destino.toLowerCase(),0) != -1  && destino != null && salida != null){
+                                document.getElementById("cuerpo").insertRow(-1).innerHTML = '<tr><td>'+a[i].NamUsuario+'</td><td>'+a[i].Viajes[f].Salida+'</td><td>'+a[i].Viajes[f].Destino+'</td><td>XD</td></tr>';
+                             }
+                         }   
+                    }else{
+                        viajes = false;
+                    }
+                }
+                if(viajes === false){
+                    alert("No hay viajes registrados")
+                }
+            }else{
+                alert("No hay usuarios registrados")
+            }
+        }
+        
     </script>
 </head>
-<body class="">
-    <div class="col-auto  p-5 text-center m-0 row justify-content-center" >
-    <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Login\login.html"><input type="button" value="Acceder" id="login" class="btn btn-primary"></a>
-    <h3>Bienvenido a TicoRides.com</h3>
-    <p id="p1">Buscar un ride</p>
-    <form >
-        <label for="salida">Salida</label><input type="text" name="salida" id="salida" >
-        <label for="destino">Destino</label><input type="text" name="destino" id="destino">
-        <input type="button" value="Buscar" class="btn btn-primary" onclick="agregarFila('tablePublico')">
-    </form>
-    <p id="p2">Resultados de tu busqueda</p>
-    <form id="table" class="overflow-auto h-100" >
-        <table border="1"  id="tablePublico" class="container table table-bordered">
-            <tr >
-                <th style="background-color: steelblue; position: sticky; top: 0;">Usuario</th>
-                <th style="background-color: steelblue; position: sticky; top: 0;">Salida</th>
-                <th style="background-color: steelblue; position: sticky; top: 0;">Destino</th>
-                <th style="background-color: steelblue; position: sticky; top: 0;">??</th>
-            </tr>          
-        </table>
-    </form>
+<body>
+    <header>
+        <div class="wraper">
+            <H1 class="logo"><span style="color: blue;">Tico</span><span style="color: white;">Rides</span><span style="color: red;">.com</span></H1>
+        <nav>
+            <input class="btn btn-primary" type="button" value="Buscar un Ride" onclick="mostrarBusqueda()">
+            <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Login\login.html"><input type="button" value="Acceder" id="login" class="btn btn-primary"></a>
+        </nav>
+        </div>
+    </header>
+    <div id="busqueda">
+        <label for="salida">Salida</label><input type="text" name="salida" id="Salida" onkeypress="busquedaViajes()">
+        <label for="destino">Destino</label><input type="text" name="destino" id="Destino" onkeypress="busquedaViajes()">
+        <input type="button" value="Buscar" class="btn btn-primary" onclick="busquedaViajes()">
+    </div>
+    <div class="  text-center m-0 row justify-content-center" id="contenido">
+    
+        <p id="p2">Resultados de tu busqueda</p>
+        <form id="table" class="overflow-auto h-100" >
+            <table border="1"  id="tablePublico" class="container table table-bordered">
+                <thead>
+                    <tr >
+                        <th style="background-color: steelblue; position: sticky; top: 0;">Usuario</th>
+                        <th style="background-color: steelblue; position: sticky; top: 0;">Salida</th>
+                        <th style="background-color: steelblue; position: sticky; top: 0;">Destino</th>
+                        <th style="background-color: steelblue; position: sticky; top: 0;">??</th>
+                    </tr>     
+                </thead>
+                <tbody id="cuerpo">
+
+                </tbody>
+            </table>
+        </form>
     </div>
 </body>
 </html>

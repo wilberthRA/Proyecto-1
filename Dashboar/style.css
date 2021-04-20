@@ -1,15 +1,10 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    max-width: 1300px;
-}
 .contenedor{
     width: 100%;
-    max-width: 700px;
     margin: auto;
 }
-
+#tabs{
+    margin-bottom: 15px;
+}
 #Rides-tab,#Dashboard-tab,#Configuraciones-tab{
     color: black;
 }
@@ -18,6 +13,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.centro{
+    display: inline-block;
 }
 #nombre,#velocidad{
     margin: 10px;
@@ -29,22 +27,40 @@ textarea{
     width: 450px;
     height: 70px;
 }
-#form3{
-    margin-left: 60%;
-    margin-top: 1px;
+#section3{
+    float: left;
+    width: 100px;
+    margin-left: 100px;
 }
-#form2{
-    margin-left: 30%;
-    margin-top: 10px;
+#section3 input,#section3 label{
+    float: left;
 }
-.form1 {
+#section3 input{
+    height: 24px;
+    margin-right: 10px;
+}
+#section2{
+    float: left;
+    width: 280px;
+}
+#section2 input{
+    float: right;
+    margin-left: 20px;
+}
+#section2 label{
+    float: left;
+    height: 32px;
+}
+#section1 {
     margin: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-.form4{
-    margin-left: 450px;
+.section4{
+    width: 100%;
+    margin: auto;
+    bottom: 0;
 }
 .Botones{
     
@@ -61,13 +77,13 @@ table{
     border: 1px;
     background-color: white;
     height: 6px;
-    width: 500px;
+    width: 800px;
     border-color: blue;
 }
 #table{
     height: 250px;
-    width: 513px;
-    max-width: 513px;
+    width: 813px;
+    max-width: 813px;
     max-height: 250px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -81,9 +97,7 @@ table{
 }
 #table1 th,tr,td{
     padding: 7px;
-}
-#btnCerrar{
-    margin-left: 1240px;
+    max-width: 214px;
 }
 .tab1 label{
     padding: 1px;
@@ -95,12 +109,68 @@ input{
 textarea{
     border-color: blue;
 }
-#btnCerrar{
-    display: block;
-    margin-left: 90%;
-    margin-top: 25px;
-    height: 35px;
-}
 a{
     text-decoration: none;
+}
+header{
+    width: 100%;
+    overflow: hidden;
+    background-color:midnightblue;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 25px -22px black;
+}
+.wraper{
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+header .logo {
+    color: black;
+    font-size: 35px;
+    line-height: 100px;
+    float: left;
+}
+header nav{
+    float: right;
+    line-height: 100px;
+}
+.centrar{
+    margin: auto;
+    text-align: center;
+   align-items: center;
+   height: 100px;
+   width: 480px;
+   justify-items: center;
+}
+.centrar2{
+    display: flex;
+    margin: auto;
+    text-align: center;
+   align-items: center;
+   height: 100px;
+   width:100%;
+   justify-items: center;
+}
+.centrar3{
+    margin: auto;
+    text-align: center;
+   align-items: center;
+   height: 100px;
+   width: 600px;
+   justify-items: center;
+}
+.ordenar{
+    width: 300px;
+    float:right;
+    margin: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 50px;
+}
+.abajo{
+    float: left;
+    bottom: 0;
+    width: 100%;
+    margin: auto;
 }

@@ -9,15 +9,11 @@ h1{
 p{
     text-align: center;
 }
-input {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-}
 label{
     text-align: center;
     display: block;
-    
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 #a{
     text-decoration: none;
@@ -30,4 +26,27 @@ label{
 }
 input{
     border-color: blue;
+}
+header{
+    width: 100%;
+    overflow: hidden;
+    background-color:midnightblue;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 25px -22px black;
+}
+.wraper{
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+header .logo {
+    color: black;
+    font-size: 35px;
+    line-height: 100px;
+    float: left;
+}
+header nav{
+    float: right;
+    line-height: 100px;
 }

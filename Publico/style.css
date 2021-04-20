@@ -1,30 +1,16 @@
-#login{
-    display: block;
-    margin-left: 10%;
-    margin-top: 25px;
-    height: 35px;
-}
 body{
     background-color: rgb(243, 243, 243);
     align-items: center;
+    max-height: 400px;
+    height: 400px;
 }
 h3{
     display: block;
     margin-top: 70px;
     text-align: center;
 }
-a{
-    text-decoration: none;
-}
-.info{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#p1{
-    text-align: center;
-}
-#p2{
+
+#p1,#p2 {
     text-align: center;
 }
 input{
@@ -56,4 +42,41 @@ table th{
 }
 table th,tr,td{
     padding: 7px;
+}
+#busqueda{
+    display: none;
+     overflow: hidden;
+     align-self: center;
+     justify-content: center;
+     box-shadow: 0 4px 25px -22px black;
+}
+#busqueda label{
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#busqueda input[type="text"]{
+    height: 30px;
+}
+header{
+    width: 100%;
+    overflow: hidden;
+    background-color:midnightblue;
+    margin-bottom: 20px;
+    
+}
+.wraper{
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+header .logo {
+    color: black;
+    font-size: 35px;
+    line-height: 100px;
+    float: left;
+}
+header nav{
+    float: right;
+    line-height: 100px;
 }

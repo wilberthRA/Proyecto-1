@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TicoRides</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script>
         function RegUsuario(namusuario,Contraseña,tel,nombre,apellidos){
             this.NamUsuario = namusuario;
@@ -16,7 +17,7 @@
         };
         function validarlog(id){
             let usuarios = new Array();
-            usuarios = JSON.parse(sessionStorage.getItem( "Usuarios" ));
+            usuarios = JSON.parse(localStorage.getItem( "Usuarios" ));
             let e = ""
                 for(let i = 0;i < usuarios.length;i++){
                     if(document.getElementById("username").value == usuarios[i].NamUsuario && document.getElementById("password").value == usuarios[i].Contraseña){
@@ -42,15 +43,21 @@
     
 </head>
 <body>
-    <h1>TicoRides</h1>
-    <br>
-    <br>
-    <br>
-    <form id="form1" action="datos.php" onsubmit="validarlog(this)" method="POST">
-    <label for="username" >Nombre de usuario</label><br><input type="text" name="username" id="username"><br>
-    <label for="password">Contraseña</label><br><input type="password" id="password">
-    <p>¿No tienes una cuenta? <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Registro\registro.html">Registrate aqui</a></p>
-    <input type="submit" value="Acceder" id="btnacceder">
-</form>
+    <header>
+        <div class="wraper">
+            <H1 class="logo"><span style="color: blue;">Tico</span><span style="color: white;">Rides</span><span style="color: red;">.com</span></H1>
+            <nav>
+                <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Publico\publico.html"><input type="button" class="btn btn-primary" value="Volver"></a>
+            </nav>
+        </div>
+    </header>
+    <div class="  text-center m-0 row justify-content-center" id="contenido">
+        <form id="form1" action="datos.php" onsubmit="validarlog(this)" method="POST">
+            <label for="username" >Nombre de usuario</label><br><input type="text" name="username" id="username"><br>
+            <label for="password">Contraseña</label><br><input type="password" id="password">
+            <p>¿No tienes una cuenta? <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Registro\registro.html">Registrate aqui</a></p>
+            <input type="submit" value="Acceder" id="btnacceder">
+        </form>
+    </div>
 </body>
 </html>

@@ -24,9 +24,9 @@
             tab.show()
         }
         function agregarFila(){
-            document.getElementById("tabla1").insertRow(-1).innerHTML = '<tr><td>'+document.getElementById("Nomride").value+'</td><td>'+document.getElementById("Salida").value+'</td><td>'+document.getElementById("Destino").value+'</td><td><button class="btn btn-primary" type="button" role="tab" onclick="cargarRide(this),Fila(this),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Editar'+'\')">Editar</button> <button class="btn btn-primary" onclick="pregunta(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="cargarRide(this),readonly(),mostrartab(\''+'Rides-tab'+'\')" >ver</button></td></tr>';
+            document.getElementById("tabla1").insertRow(-1).innerHTML = '<tr><td>'+document.getElementById("Nomride").value+'</td><td>'+document.getElementById("Salida").value+'</td><td>'+document.getElementById("Destino").value+'</td><td><button class="btn btn-primary" type="button" role="tab" onclick="cargarRide(this),Fila(this),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Editar'+'\')">Editar</button> <button class="btn btn-primary" onclick="pregunta(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="cargarRide(this),readonly(),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Ver'+'\')" >ver</button></td></tr>';
             var a = new Array();
-            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            a = JSON.parse(localStorage.getItem('Usuarios'));
             var posicion = posicionUsuario();
             let nombre = document.getElementById("Nomride").value;
                 let salida = document.getElementById("Salida").value;
@@ -36,24 +36,24 @@
                 let hllegada = document.getElementById("Hllegada").value;
                 let dias = diasSeleccionados();
                 let h = new datostabla(nombre,salida,destino,descripcion,hsalida,hllegada,dias);
-                a[posicion].Viajes.push(h)
-                sessionStorage.setItem("Usuarios",JSON.stringify(a))
+                a[posicion].Viajes.push(h);
+                localStorage.setItem("Usuarios",JSON.stringify(a));
         }
         function pintar(){
             var a = new Array();
-            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            a = JSON.parse(localStorage.getItem('Usuarios'));
             var g = sessionStorage.getItem('usuarioactivo');
             for (let i = 0; i < a.length; i++) {
                 if(g === a[i].NamUsuario){
                     for (let f = 0; f < a[i].Viajes.length; f++) {
-                        document.getElementById("tabla1").insertRow(-1).innerHTML = '<tr><td>'+a[i].Viajes[f].Nombre+'</td><td>'+a[i].Viajes[f].Salida+'</td><td>'+a[i].Viajes[f].Destino+'</td><td><button class="btn btn-primary" type="button" role="tab" onclick="cargarRide(this),Fila(this),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Editar'+'\')">Editar</button> <button class="btn btn-primary" onclick="pregunta(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="cargarRide(this),readonly(),mostrartab(\''+'Rides-tab'+'\')" >ver</button></td></tr>';
+                        document.getElementById("tabla1").insertRow(-1).innerHTML = '<tr><td>'+a[i].Viajes[f].Nombre+'</td><td>'+a[i].Viajes[f].Salida+'</td><td>'+a[i].Viajes[f].Destino+'</td><td><button class="btn btn-primary" type="button" role="tab" onclick="cargarRide(this),Fila(this),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Editar'+'\')">Editar</button> <button class="btn btn-primary" onclick="pregunta(this)">Borrar</button> <button class="btn btn-primary" type="button" id="RidesReadonly-tab" onclick="cargarRide(this),readonly(),mostrartab(\''+'Rides-tab'+'\'),EditarAgregar(\''+'Ver'+'\')" >ver</button></td></tr>';
                     }    
                 }
             }
         }
         function posicionUsuario(){
             var a = new Array();
-            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            a = JSON.parse(localStorage.getItem('Usuarios'));
             var g = sessionStorage.getItem('usuarioactivo');
                 var posicion = 0;
                 for (let j = 0; j < a.length; j++) {
@@ -65,7 +65,7 @@
         }
         function editarViaje(){
             var a = new Array();
-            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            a = JSON.parse(localStorage.getItem('Usuarios'));
             var fila = sessionStorage.getItem("fila");
             var posicion = posicionUsuario();
             a[posicion].Viajes[fila-1].Nombre = document.getElementById("Nomride").value;
@@ -75,7 +75,7 @@
             a[posicion].Viajes[fila-1].HSalida = document.getElementById("Hsalida").value;
             a[posicion].Viajes[fila-1].HLlegada = document.getElementById("Hllegada").value;
             a[posicion].Viajes[fila-1].Dias = diasSeleccionados();
-            sessionStorage.setItem("Usuarios",JSON.stringify(a))
+            localStorage.setItem("Usuarios",JSON.stringify(a))
         }
         
         function Fila(row){
@@ -84,17 +84,17 @@
         }
         function eliminar(row){
             var a = new Array();
-            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            a = JSON.parse(localStorage.getItem('Usuarios'));
             var posicion = posicionUsuario();
             var d = row.parentNode.parentNode.rowIndex;
             a[posicion].Viajes.splice(d-1,1)
             document.getElementById('tabla1').deleteRow(d);
-            sessionStorage.setItem("Usuarios",JSON.stringify(a))
+            localStorage.setItem("Usuarios",JSON.stringify(a))
         }
         function cargarRide(row){
             var d = row.parentNode.parentNode.rowIndex;
             var a = new Array();
-            a = JSON.parse(sessionStorage.getItem('Usuarios'));
+            a = JSON.parse(localStorage.getItem('Usuarios'));
             var posicion = posicionUsuario();
             document.getElementById("Nomride").value = a[posicion].Viajes[d-1].Nombre;
             document.getElementById("Salida").value = a[posicion].Viajes[d-1].Salida;
@@ -102,7 +102,7 @@
             document.getElementById("descripcion").value = a[posicion].Viajes[d-1].Descripcion;
             document.getElementById("Hsalida").value = a[posicion].Viajes[d-1].HSalida;
             document.getElementById("Hllegada").value = a[posicion].Viajes[d-1].HLlegada;
-            var formulario = document.getElementById("form3").childNodes;
+            var formulario = document.getElementById("section3").childNodes;
             for (let i = 0; i < formulario.length; i++) {
                 for (let f = 0; f < a[posicion].Viajes[d-1].Dias.length; f++) {
                     if (formulario[i].type == "checkbox" && formulario[i].value == a[posicion].Viajes[d-1].Dias[f] ) {
@@ -111,16 +111,85 @@
                 } 
             }
         }
+        function cargarInfoPersonal(){
+            var a = new Array();
+            a = JSON.parse(localStorage.getItem('Usuarios'));
+            var posicion = posicionUsuario();
+            document.getElementById("username").value = a[posicion].NamUsuario;
+            document.getElementById("name").value = a[posicion].Nombre;
+            document.getElementById("last name").value = a[posicion].Apellidos;
+            document.getElementById("cellphone").value = a[posicion].Telefono;    
+        }
+        function validarNomUsuario(){
+            var usuarios = new Array();
+                usuarios = JSON.parse(localStorage.getItem( "Usuarios" ));
+            if(localStorage.getItem("Usuarios") != null){
+                for(let i = 0;i < usuarios.length;i++){
+                    if( document.getElementById("username").value == usuarios[i].NamUsuario){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }else{
+                return true;
+            }
+        }
+        function validarInfoPersonal(){
+            var a = new Array();
+            a = JSON.parse(localStorage.getItem('Usuarios'));
+            var posicion = posicionUsuario();
+            var info;
+            if(validarNomUsuario() == true){
+                sessionStorage.setItem("usuarioactivo",document.getElementById("username").value)
+                if(document.getElementById("password").value != "" && document.getElementById("ReContraseña").value != ""){
+                    if(document.getElementById("password").value === document.getElementById("ReContraseña").value){
+                        info = new RegUsuario(document.getElementById("username").value,document.getElementById("password").value,document.getElementById("cellphone").value,document.getElementById("name").value,document.getElementById("last name").value,a[posicion].Viajes);
+                        if(a[posicion] != info){
+                            a[posicion] = info;
+                            localStorage.setItem("Usuarios",JSON.stringify(a))
+                            document.getElementById("password").value = "";
+                            document.getElementById("ReContraseña").value = "";
+                        }
+                    }else{ 
+                        cargarInfoPersonal()
+                        document.getElementById("password").value = "";
+                        document.getElementById("ReContraseña").value = "";
+                        alert("la contraseña no coincide")
+                    }
+                }else{
+                    info = new RegUsuario(document.getElementById("username").value,a[posicion].Contraseña,document.getElementById("cellphone").value,document.getElementById("name").value,document.getElementById("last name").value,a[posicion].Viajes);
+                    if(a[posicion] != info){
+                    a[posicion] = info;
+                    localStorage.setItem("Usuarios",JSON.stringify(a))
+                    }
+                }
+            }else{
+                cargarInfoPersonal()
+                document.getElementById("password").value = "";
+                document.getElementById("ReContraseña").value = "";
+                alert("ese nombre de usuario ya esta en uso")
+            }
+            
+        }
         function pregunta(id){
-    if (confirm('¿Estas seguro que quiere borrar el viaje?')){
-        eliminar(id)
-    }
-}
+            if (confirm('¿Estas seguro que quiere borrar el viaje?')){
+             eliminar(id)
+            }
+        }
+        function pregunta2(){
+            if (confirm('¿Estas seguro que quiere cerrar sesion?')){
+                document.getElementById("enlaceCerrar").href="C:/Users/wilcr/OneDrive/Escritorio/UTN Software/Diseño de aplicaciones web/Programas/Proyecto 1/Publico/publico.html"
+            }
+        }
         function readonly(){
-            var hijos = document.getElementById('form1').childNodes;
+            var hijos = document.getElementById('section1').childNodes;
             var hijos2 = document.getElementById('centro').childNodes;
-            var hijos3 = document.getElementById('form3').childNodes;
+            var hijos3 = document.getElementById('section3').childNodes;
+            var hijos4 = document.getElementById('section2').childNodes;
             for (let index = 0; index < hijos.length; index++) {
+                hijos[index].disabled = true;
+
                 var Rehijos = hijos[index].childNodes;
                 for (let i = 0; i < Rehijos.length; i++) {
                     Rehijos[i].readOnly = true;
@@ -132,6 +201,9 @@
             }
             for (let a = 0; a < hijos3.length; a++) {
                 hijos3[a].disabled = true;
+            }
+            for (let a = 0; a < hijos4.length; a++) {
+                hijos4[a].disabled = true;
             }
         }
         function datostabla(nombre,salida,destino,descripcion,hsalida,hllegada,dias){
@@ -145,7 +217,7 @@
         }
         function diasSeleccionados(){
             var diasSeleccionados = new Array();
-            var formulario = document.getElementById("form3").childNodes;
+            var formulario = document.getElementById("section3").childNodes;
             for (let i = 0; i < formulario.length; i++) {
                 if (formulario[i].type == "checkbox" && formulario[i].checked==true) {
                     diasSeleccionados.push(formulario[i].value)
@@ -168,7 +240,7 @@
             var tipo = sessionStorage.getItem("Tipo");
             if(tipo == "Editar"){
                 editarViaje()
-            }else{
+            }else if(tipo == "Agregar"){
                 diasSeleccionados()
                 agregarFila()
             }
@@ -182,16 +254,23 @@
     <title>TicoRides</title>
   </head>
   <body>
-    <div class="contendor">
-        <a href="C:\Users\wilcr\OneDrive\Escritorio\UTN Software\Diseño de aplicaciones web\Programas\Proyecto 1\Publico\publico.html"><input type="button" class="btn btn-primary" onclick="guardar_localstorage()" value="Cerrar sesion" name="Cerrar sesion" id="btnCerrar"></a>
-            <ul class="nav nav-tabs justify-content-center" role="tablist">
+    <header>
+        <div class="wraper">
+            <H1 class="logo"><span style="color: blue;">Tico</span><span style="color: white;">Rides</span><span style="color: red;">.com</span></H1>
+            <nav>
+                <a id="enlaceCerrar"><input type="button" class="btn btn-primary" onclick="pregunta2()" value="Cerrar sesion" name="Cerrar sesion" id="btnCerrar"></a>
+            </nav>
+        </div>
+    </header>
+    <div class="contenedor">
+            <ul class="nav nav-tabs justify-content-center" role="tablist" id="tabs">
                 <li class="nav-item " role="presentation">
                     <button class="nav-link active btn-primary" id="Dashboard-tab" data-bs-toggle="tab" data-bs-target="#Dashboard" type="button" role="tab" aria-controls="Dashboard" aria-selected="true">Home</button></li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link btn-primary" id="Rides-tab" data-bs-toggle="tab" data-bs-target="#Rides" type="button" role="tab" aria-controls="Rides" aria-selected="false" >Rides</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link btn btn-primaRides-tabry" id="Configuraciones-tab" data-bs-toggle="tab" data-bs-target="#Configuraciones" type="button" role="tab" aria-controls="Configuraciones" aria-selected="false">Configuraciones</button></li>
+                    <button class="nav-link btn btn-primaRides-tabry" id="Configuraciones-tab" data-bs-toggle="tab" data-bs-target="#Configuraciones" type="button" role="tab" aria-controls="Configuraciones" aria-selected="false" onclick="cargarInfoPersonal()">Configuraciones</button></li>
             </ul>
          <div class="tab-content">
              <!--Div que contine el tab de dashboard-->
@@ -200,54 +279,70 @@
                  <h2>Dashboard</h2>
                  <h4>Mis Rides</h4><br>
                  <button class="btn btn-primary" type="button" role="tab" onclick="mostrartab('Rides-tab'),EditarAgregar('Agregar')">Agregar</button><br><br>
-                 <form id="table">
-                     <table border="1" id="tabla1"  class="container table table-bordered">
-                         <tr>
-                             <th>Nombre</th>
-                             <th>Salida</th>
-                             <th>Destino</th>
-                             <th>Acciones</th>
-                         </tr>
-                     </table>
-                 </form>
+                 <section class="centrar2">
+                    <section id="table">
+                        <table border="1" id="tabla1"  class="container table table-bordered">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Salida</th>
+                                <th>Destino</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </table>
+                    </section>
+                 </section>
+                 
              </div>
  
              <!--Div que contiene el tab de las configuracion-->
     
              <div class="tab2 tab-pane" id="Configuraciones" role="tabpanel" aria-labelledby="Configuraciones-tab">
                  <h1>Configuraciones</h1>
-                 <label for="nombre">Nombre completo</label><input type="text" name="Nombre" id="nombre"><br>
-                 <label for="velocidad">Velocidad promedio</label><input type="number" name="Velocidad" id="velocidad" readonly><br>
-                 <label for="acercademi">Descripcion</label><br><textarea name="Acercademi" id="acercademi"></textarea><br>
-                 <input class="btn btn-primary" type="button" value="Guardar"> <input class="btn btn-primary" type="button" value="cancelar" >
+                 <section class="centrar3">
+                    <section class="ordenar">
+                        <label for="username">Nombre de usuario</label><br><input required type="text" name="nombre de usuario" id="username"><br>
+                        <label for="password">Contraseña</label><br><input required type="password" name="Contraseña" id="password"><br>
+                        <label for="confirm password">Repita su contraseña</label><br><input required type="password" name="com contraseña" id="ReContraseña">
+                    </section>
+                    <section class="ordenar">
+                        <label for="name">Nombre</label><br><input required type="text" name="nombre" id="name"><br>
+                        <label for="last name">Apellidos</label><br><input required type="text" name="apellidos" id="last name"><br>
+                        <label for="cellphone">Telefono</label><br><input required type="text" name="telefono" id="cellphone"><br>
+                    </section>
+                </section>
+                <section class="abajo">
+                    <input class="btn btn-primary" type="button" onclick="validarInfoPersonal()" value="Guardar"> <input class="btn btn-primary" type="button" value="cancelar" >
+                </section>
              </div>
              <!--Div que contiene el tab de los rides-->
              
              <div class="tab3 tab-pane" id="Rides" role="tabpanel" aria-labelledby="Rides-tab">
-                 <form id="form1" onsubmit="accion(),document.getElementById('form1').reset(),mostrartab('Dashboard-tab')">
-                     <section class="form1">
-                         <label for="Nomride" id="lblSalida">Nombre del ride</label><br><input type="text" name="salida" id="Nomride" required><br>
+                 <form id="form1" onsubmit="accion(),document.getElementById('form1').reset()">
+                     <section id="section1">
+                         <label for="Nomride">Nombre del ride</label><input type="text" name="salida" id="Nomride" required>
                              <section id="centro">
                                  <label for="Salida">Salida</label><input required type="text" name="" id="Salida"> <label for="Destino">Destino</label><input required type="text" name="" id="Destino">
                              </section>
-                             <label for="descripcion">Descripcion</label><BR><textarea name="descripcion" id="descripcion"></textarea>
+                             <label for="descripcion">Descripcion</label><textarea name="descripcion" id="descripcion"></textarea>
                      </section>
-                     
-                     <section id="form2">
-                         <label for="Hsalida">Hora de salida</label><input type="time" name="hSalida" id="Hsalida" required><br>
-                         <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada" required>
-                     </section> 
-                     <section id="form3">
-                         <input type="checkbox" checked name="Lunes" id="chkLunes" value="Lunes"><label id="lbldia">Lunes</label><br>
-                         <input type="checkbox" name="Martes" id="chkMartes" value="Martes"><label id="lbldia">Martes</label><br>
-                         <input type="checkbox" name="Miercoles" id="chkMiercoles" value="Miercoles"><label id="lbldia">Miercoles</label><br>
-                         <input type="checkbox" name="Jueves" id="chkJueves" value="Jueves"><label id="lbldia">Jueves</label><br>
-                         <input type="checkbox" name="Viernes" id="chkViernes" value="Viernes"><label id="lbldia">Viernes</label><br>
-                         <input type="checkbox" name="Sabado" id="chkSabado" value="Sabado"><label id="lbldia">Sabado</label><br>
-                         <input type="checkbox" name="Domingo" id="chkDomingo" value="Domingo"><label id="lbldia">Domingo</label><br>
-                     </section>
-                     <section class="form4">
-                         <button class="btn btn-primary" type="button" onclick="document.getElementById('form1').reset(),mostrartab('Dashboard-tab')" >Cancelar</button> <button class="btn btn-primary" type="submit" >Aceptar</button>
+                     <hr>
+                     <section class="centrar">
+                        <section id="section2">
+                            <label for="Hsalida">Hora de salida</label><input type="time" name="hSalida" id="Hsalida" required><br>
+                            <label for="Hllegada">Hora estimada de llegada</label><input type="time" name="hLlegada" id="Hllegada" required>
+                        </section> 
+                        <section id="section3">
+                            <input type="checkbox" name="Lunes" id="chkLunes" value="Lunes"><label id="chkLunes">Lunes</label><br>
+                            <input type="checkbox" name="Martes" id="chkMartes" value="Martes"><label id="chkMartes">Martes</label><br>
+                            <input type="checkbox" name="Miercoles" id="chkMiercoles" value="Miercoles"><label id="chkMiercoles">Miercoles</label><br>
+                            <input type="checkbox" name="Jueves" id="chkJueves" value="Jueves"><label id="chkJueves">Jueves</label><br>
+                            <input type="checkbox" name="Viernes" id="chkViernes" value="Viernes"><label id="chkViernes">Viernes</label><br>
+                            <input type="checkbox" name="Sabado" id="chkSabado" value="Sabado"><label id="chkSabado">Sabado</label><br>
+                            <input type="checkbox" name="Domingo" id="chkDomingo" value="Domingo"><label id="chkDomingo">Domingo</label><br>
+                        </section>
+                        <section class="section4">
+                            <button class="btn btn-primary" type="button" onclick="document.getElementById('form1').reset(),mostrartab('Dashboard-tab')" >Cancelar</button> <button class="btn btn-primary" type="submit" >Aceptar</button>
+                        </section>
                      </section>
                  </form>
              </div>
