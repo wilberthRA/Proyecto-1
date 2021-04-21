@@ -27,13 +27,14 @@ function busquedaViajes(){
     var destino = document.getElementById("Destino").value;
     ///var nuevo = document.createElement('tbody');
     if(a != null){
+        document.getElementById("cuerpo").innerHTML = "";
         for (let i = 0; i < a.length; i++) {
             viajes = true;
             if(a[i].Viajes.length > 0){
-            document.getElementById("cuerpo").innerHTML = "";
+            
                  for (let f = 0; f < a[i].Viajes.length; f++) {
-                     if(a[i].Viajes[f].Salida.toLowerCase().indexOf(salida.toLowerCase(),0) != -1 && a[i].Viajes[f].Destino.toLowerCase().indexOf(destino.toLowerCase(),0) != -1  && destino != null && salida != null){
-                        document.getElementById("cuerpo").insertRow(-1).innerHTML = '<tr><td>'+a[i].NamUsuario+'</td><td>'+a[i].Viajes[f].Salida+'</td><td>'+a[i].Viajes[f].Destino+'</td><td>XD</td></tr>';
+                     if(a[i].Viajes[f].Salida.toLowerCase().indexOf(salida.toLowerCase(),0) != -1 && a[i].Viajes[f].Destino.toLowerCase().indexOf(destino.toLowerCase(),0) != -1  ){
+                        document.getElementById("cuerpo").insertRow(-1).innerHTML = '<tr><td>'+a[i].NamUsuario+'</td><td>'+a[i].Viajes[f].Salida+'</td><td>'+a[i].Viajes[f].Destino+'</td></tr>';
                      }
                  }   
             }else{

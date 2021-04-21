@@ -20,8 +20,8 @@
         </div>
     </header>
     <div id="busqueda">
-        <label for="salida">Salida</label><input type="text" name="salida" id="Salida" onkeypress="busquedaViajes()">
-        <label for="destino">Destino</label><input type="text" name="destino" id="Destino" onkeypress="busquedaViajes()">
+        <label for="salida">Salida</label><input type="text" name="salida" id="Salida" onkeydown="busquedaViajes()">
+        <label for="destino">Destino</label><input type="text" name="destino" id="Destino" onkeydown="busquedaViajes()">
         <input type="button" value="Buscar" class="btn btn-primary" onclick="busquedaViajes()">
     </div>
     <div class="  text-center m-0 row justify-content-center" id="contenido">
@@ -34,7 +34,6 @@
                         <th style="background-color: steelblue; position: sticky; top: 0;">Usuario</th>
                         <th style="background-color: steelblue; position: sticky; top: 0;">Salida</th>
                         <th style="background-color: steelblue; position: sticky; top: 0;">Destino</th>
-                        <th style="background-color: steelblue; position: sticky; top: 0;">??</th>
                     </tr>     
                 </thead>
                 <tbody id="cuerpo">
